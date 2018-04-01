@@ -1,1 +1,100 @@
 @import 'reset';
+
+body {
+    color: #FFFFFF;
+    background: linear-gradient(90deg, #5345F9 0%, #A93EE1 100%);
+    // background-size: 600% 600%;
+    // animation: animateBackground 8s ease infinite;
+    @keyframes animateBackground { 
+        0%{background-position:0% 10%}
+        50%{background-position:100% 91%}
+        100%{background-position:0% 10%}
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+        min-height: 300px;
+        height: 100vh;
+        padding: 0 2%;
+        header {
+            h1 {
+                font: 30px/40px 'Work Sans', sans-serif;
+                font-weight: 300;
+                text-align: center;
+                @media screen and (min-width: 650px) {
+                    font: 34px/44px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+                @media screen and (min-width: 720px) {
+                    font: 40px/50px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+                @media screen and (min-width: 1024px) {
+                    font: 50px/60px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+                @media screen and (min-width: 1440px) {
+                    font: 60px/70px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+                @media screen and (min-width: 1920px) {
+                    font: 80px/90px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+            }
+        }
+        #map {
+            flex-grow: 1;
+            
+        }
+        nav {
+            display: flex;
+            flex-direction: column;
+            @media screen and (min-width: 720px) {
+                flex-direction: row;
+            }
+            select {
+                width: 100%;
+                border: none;
+                background: transparent;
+                color: #FFFFFF;
+                font: 18px/24px 'Work Sans', sans-serif;
+                font-weight: 300;
+                @media screen and (min-width: 650px) {
+                    font: 20px/26px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+                @media screen and (min-width: 720px) {
+                    font: 24px/30px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+                @media screen and (min-width: 1024px) {
+                    font: 30px/34px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+                @media screen and (min-width: 1440px) {
+                    font: 34px/40px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+                @media screen and (min-width: 1920px) {
+                    font: 38px/44px 'Work Sans', sans-serif;
+                    font-weight: 300;
+                }
+            }
+            #modes {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: #783BDA;
+                    border-radius: 100%;
+                    border: none;
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+}

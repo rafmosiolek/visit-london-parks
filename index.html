@@ -4,12 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Viist London Parks with Google Maps API!</title>
+    <title>Visit London Parks with Google Maps API!</title>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,500" rel="stylesheet">
     <link rel="stylesheet" href="build/css/main.css">
 </head>
 <body>
-    
+    <main>
+        <header>
+            <h1>Visit London Parks!</h1>
+        </header>
+        <section id="map"></section>
+        <nav>
+            <select name="text">
+                <option value="value1">Value 1</option> 
+                <option value="value2">Value 2</option>
+                <option value="value3">Value 3</option>
+            </select>
+            <article id="modes">
+                <button value='walking'>1</button>
+                <button value='driving'>2</button>
+                <button value='transit'>3</button>
+            </article>
+
+        </nav>
+    </main>
+
 
     <script src="build/js/main.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhfhCCBYbyvhHslmLkT5i7a5OZulnCXb0&callback=initMap"></script>

@@ -44,3 +44,141 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0; }
+
+body {
+  color: #FFFFFF;
+  background: -webkit-gradient(linear, left top, right top, from(#5345F9), to(#A93EE1));
+  background: -webkit-linear-gradient(left, #5345F9 0%, #A93EE1 100%);
+  background: -o-linear-gradient(left, #5345F9 0%, #A93EE1 100%);
+  background: linear-gradient(90deg, #5345F9 0%, #A93EE1 100%); }
+
+@-webkit-keyframes animateBackground {
+  0% {
+    background-position: 0% 10%; }
+  50% {
+    background-position: 100% 91%; }
+  100% {
+    background-position: 0% 10%; } }
+
+@keyframes animateBackground {
+  0% {
+    background-position: 0% 10%; }
+  50% {
+    background-position: 100% 91%; }
+  100% {
+    background-position: 0% 10%; } }
+  body main {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-height: 300px;
+    height: 100vh;
+    padding: 0 2%; }
+    body main header h1 {
+      font: 30px/40px 'Work Sans', sans-serif;
+      font-weight: 300;
+      text-align: center; }
+      @media screen and (min-width: 650px) {
+        body main header h1 {
+          font: 34px/44px 'Work Sans', sans-serif;
+          font-weight: 300; } }
+      @media screen and (min-width: 720px) {
+        body main header h1 {
+          font: 40px/50px 'Work Sans', sans-serif;
+          font-weight: 300; } }
+      @media screen and (min-width: 1024px) {
+        body main header h1 {
+          font: 50px/60px 'Work Sans', sans-serif;
+          font-weight: 300; } }
+      @media screen and (min-width: 1440px) {
+        body main header h1 {
+          font: 60px/70px 'Work Sans', sans-serif;
+          font-weight: 300; } }
+      @media screen and (min-width: 1920px) {
+        body main header h1 {
+          font: 80px/90px 'Work Sans', sans-serif;
+          font-weight: 300; } }
+    body main #map {
+      -webkit-box-flex: 1;
+      -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1; }
+    body main nav {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column; }
+      @media screen and (min-width: 720px) {
+        body main nav {
+          -webkit-box-orient: horizontal;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: row;
+          -ms-flex-direction: row;
+          flex-direction: row; } }
+      body main nav select {
+        width: 100%;
+        border: none;
+        background: transparent;
+        color: #FFFFFF;
+        font: 18px/24px 'Work Sans', sans-serif;
+        font-weight: 300; }
+        @media screen and (min-width: 650px) {
+          body main nav select {
+            font: 20px/26px 'Work Sans', sans-serif;
+            font-weight: 300; } }
+        @media screen and (min-width: 720px) {
+          body main nav select {
+            font: 24px/30px 'Work Sans', sans-serif;
+            font-weight: 300; } }
+        @media screen and (min-width: 1024px) {
+          body main nav select {
+            font: 30px/34px 'Work Sans', sans-serif;
+            font-weight: 300; } }
+        @media screen and (min-width: 1440px) {
+          body main nav select {
+            font: 34px/40px 'Work Sans', sans-serif;
+            font-weight: 300; } }
+        @media screen and (min-width: 1920px) {
+          body main nav select {
+            font: 38px/44px 'Work Sans', sans-serif;
+            font-weight: 300; } }
+      body main nav #modes {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        width: 100%; }
+        body main nav #modes button {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          -ms-flex-align: center;
+          align-items: center;
+          background: #783BDA;
+          -webkit-border-radius: 100%;
+          border-radius: 100%;
+          border: none;
+          color: #FFFFFF; }
