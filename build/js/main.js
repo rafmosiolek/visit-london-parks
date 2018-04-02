@@ -18,7 +18,7 @@ var initMap = function initMap() {
 
 var geolocateUser = function geolocateUser(map) {
   var directionsService = new google.maps.DirectionsService();
-  var directionsDisplay = new google.maps.DirectionsRenderer();
+  var directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
   var geolocationOptions = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -29,15 +29,22 @@ var geolocateUser = function geolocateUser(map) {
   directionsDisplay.setMap(map);
   if (navigator.geolocation) {
     console.log('geolocation...');
+    userLocation = {
+      lat: 51.5074,
+      lng: -0.1278
+    };
+    map.setCenter(userLocation);
+    chooseTransportMode(directionsService, directionsDisplay, userLocation, markers, map);
+    addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
     navigator.geolocation.getCurrentPosition(function (position, options) {
-      userLocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      console.log('user location found: ', userLocation);
-      map.setCenter(userLocation);
-      chooseTransportMode(directionsService, directionsDisplay, userLocation, markers);
-      // addCustomMarker(userLocation, map, 'assets/img/user_marker.png', 'User Location');
+      // userLocation = {
+      //     lat: position.coords.latitude,
+      //     lng: position.coords.longitude
+      // }
+      // console.log('user location found: ', userLocation);
+      // map.setCenter(userLocation);
+      // chooseTransportMode(directionsService, directionsDisplay, userLocation, markers);
+      // addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
     }, function () {
       // position callback
       errorCallback(true, map.getCenter());
@@ -51,14 +58,15 @@ var errorCallback = function errorCallback(browserGeolocation, pos) {
   browserGeolocation ? console.log('Error: The Geolocation service failed.') : console.log('Error: Your browser doesn\'t support geolocation.');
 };
 
-var chooseTransportMode = function chooseTransportMode(directionsService, directionsDisplay, startingPoint, markers) {
+var chooseTransportMode = function chooseTransportMode(directionsService, directionsDisplay, startingPoint, markers, map) {
+  console.log('transport', map);
   removeExistingMarkers(markers);
   var transportModes = document.querySelectorAll(".modes button");
 
   var _loop = function _loop(i) {
     transportModes[i].addEventListener('click', function () {
       var selectedMode = transportModes[i].value.toUpperCase();
-      calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, selectedMode);
+      calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, selectedMode, markers, map);
     });
   };
 
@@ -67,29 +75,40 @@ var chooseTransportMode = function chooseTransportMode(directionsService, direct
   }
 };
 
-// const addCustomMarker = (markers, position, map, icon, title) => {
-//     removeExistingMarkers(markers)
-//     console.log('addCustomMarker called');
-//     new google.maps.Marker({
-//         position: position,
-//         map: map,
-//         icon: icon,
-//         title: title,
-//         animation: google.maps.Animation.DROP,
-//     });
-// }
+var addCustomMarker = function addCustomMarker(markers, position, map, icon, title) {
+
+  var infoWindow = new google.maps.InfoWindow({
+    content: title
+  });
+  var marker = new google.maps.Marker({
+    position: position,
+    map: map,
+    icon: icon,
+    title: title,
+    animation: google.maps.Animation.BOUNCE
+  });
+  setTimeout(function () {
+    return marker.setAnimation(null);
+  }, 750);
+  markers.push(marker);
+  marker.setMap(map);
+  marker.addListener('click', function () {
+    return infoWindow.open(map, marker);
+  });
+};
 
 var removeExistingMarkers = function removeExistingMarkers(markers) {
+  console.log('markers' + markers);
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
 };
 
-var calculateAndDisplayRoute = function calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, transportMode) {
+var calculateAndDisplayRoute = function calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, transportMode, markers, map) {
   console.log('calculateAndDisplayRoute called');
   var chosenDestination = document.querySelector(".parks-select select").value;
-  console.log(chosenDestination);
-  console.log(startingPoint);
+  console.log('chosen destination: ' + chosenDestination);
+  console.log('starting point: ' + startingPoint);
   directionsService.route({
     origin: startingPoint,
     destination: chosenDestination,
@@ -97,6 +116,10 @@ var calculateAndDisplayRoute = function calculateAndDisplayRoute(directionsServi
   }, function (response, status) {
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
+      var leg = response.routes[0].legs[0];
+      removeExistingMarkers(markers);
+      addCustomMarker(markers, leg.start_location, map, 'assets/img/user_marker.png', 'User location');
+      addCustomMarker(markers, leg.end_location, map, 'assets/img/park_marker.png', chosenDestination);
     } else {
       window.alert('Directions request failed due to ' + status);
     }

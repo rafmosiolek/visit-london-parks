@@ -12,13 +12,11 @@ const initMap = () => {
     const map = new google.maps.Map(mapContainer, mapOptions);
     
     geolocateUser(map);
-
-    
 }
 
 const geolocateUser = (map) => {
     const directionsService = new google.maps.DirectionsService;
-    const directionsDisplay = new google.maps.DirectionsRenderer;
+    const directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
     const geolocationOptions = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -29,15 +27,22 @@ const geolocateUser = (map) => {
     directionsDisplay.setMap(map);
     if (navigator.geolocation) {
         console.log('geolocation...');
+        userLocation = {
+            lat: 51.5074,
+            lng: -0.1278
+        }
+        map.setCenter(userLocation);
+        chooseTransportMode(directionsService, directionsDisplay, userLocation, markers, map);
+        addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
         navigator.geolocation.getCurrentPosition((position, options) => {
-            userLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            }
-            console.log('user location found: ', userLocation);
-            map.setCenter(userLocation);
-            chooseTransportMode(directionsService, directionsDisplay, userLocation, markers);
-            // addCustomMarker(userLocation, map, 'assets/img/user_marker.png', 'User Location');
+            // userLocation = {
+            //     lat: position.coords.latitude,
+            //     lng: position.coords.longitude
+            // }
+            // console.log('user location found: ', userLocation);
+            // map.setCenter(userLocation);
+            // chooseTransportMode(directionsService, directionsDisplay, userLocation, markers);
+            // addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
         }, () => {
             // position callback
             errorCallback(true, map.getCenter());
@@ -51,42 +56,50 @@ const errorCallback = (browserGeolocation, pos) => {
     browserGeolocation ? console.log('Error: The Geolocation service failed.') : console.log('Error: Your browser doesn\'t support geolocation.');
 }
 
-const chooseTransportMode = (directionsService, directionsDisplay, startingPoint, markers) => {
+const chooseTransportMode = (directionsService, directionsDisplay, startingPoint, markers, map) => {
+    console.log('transport', map);
     removeExistingMarkers(markers);
     const transportModes = document.querySelectorAll(".modes button");
     for (let i = 0; i < transportModes.length; i++) {
         transportModes[i].addEventListener('click', () => {
             let selectedMode = transportModes[i].value.toUpperCase();
-            calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, selectedMode);
+            calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, selectedMode, markers, map);
             
         })
     }
 }
 
-// const addCustomMarker = (markers, position, map, icon, title) => {
-//     removeExistingMarkers(markers)
-//     console.log('addCustomMarker called');
-//     new google.maps.Marker({
-//         position: position,
-//         map: map,
-//         icon: icon,
-//         title: title,
-//         animation: google.maps.Animation.DROP,
-//     });
-// }
+const addCustomMarker = (markers, position, map, icon, title) => {
+    
+    let infoWindow = new google.maps.InfoWindow({
+        content: title
+    })
+    let marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        icon: icon,
+        title: title,
+        animation: google.maps.Animation.BOUNCE,
+    });
+    setTimeout(() => marker.setAnimation(null), 750);
+    markers.push(marker);
+    marker.setMap(map);
+    marker.addListener('click', () => infoWindow.open(map, marker));
+}
 
 const removeExistingMarkers = (markers) => {
+    console.log('markers' + markers);
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
     }
 }
 
 
-const calculateAndDisplayRoute = (directionsService, directionsDisplay, startingPoint, transportMode) => {
+const calculateAndDisplayRoute = (directionsService, directionsDisplay, startingPoint, transportMode, markers, map) => {
     console.log('calculateAndDisplayRoute called');
     const chosenDestination = document.querySelector(".parks-select select").value;
-    console.log(chosenDestination);
-    console.log(startingPoint);
+    console.log('chosen destination: ' + chosenDestination);
+    console.log('starting point: ' + startingPoint);
     directionsService.route({
         origin: startingPoint,
         destination: chosenDestination,
@@ -94,6 +107,10 @@ const calculateAndDisplayRoute = (directionsService, directionsDisplay, starting
     }, (response, status) => {
         if (status === 'OK') {
             directionsDisplay.setDirections(response);
+            const leg = response.routes[0].legs[0];
+            removeExistingMarkers(markers);
+            addCustomMarker(markers, leg.start_location, map, 'assets/img/user_marker.png', 'User location');
+            addCustomMarker(markers, leg.end_location, map, 'assets/img/park_marker.png', chosenDestination);
         } else {
             window.alert('Directions request failed due to ' + status);
         }
