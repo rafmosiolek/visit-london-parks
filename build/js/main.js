@@ -17,7 +17,9 @@ var initMap = function initMap() {
 
 var geolocateUser = function geolocateUser(map) {
   var directionsService = new google.maps.DirectionsService();
-  var directionsDisplay = new google.maps.DirectionsRenderer({ suppressMarkers: true });
+  var directionsDisplay = new google.maps.DirectionsRenderer({
+    suppressMarkers: true
+  });
   var geolocationOptions = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -36,6 +38,7 @@ var geolocateUser = function geolocateUser(map) {
       console.log('user location found: ', userLocation);
       map.setCenter(userLocation);
       chooseTransportMode(directionsService, directionsDisplay, userLocation, markers, map);
+      chooseDestination(directionsService, directionsDisplay, userLocation, markers, map);
       addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
     }, function () {
       // position callback
@@ -57,6 +60,8 @@ var chooseTransportMode = function chooseTransportMode(directionsService, direct
   var _loop = function _loop(i) {
     transportModes[i].addEventListener('click', function () {
       var selectedMode = transportModes[i].value.toUpperCase();
+      removeActiveState();
+      transportModes[i].classList.add("active");
       calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, selectedMode, markers, map);
     });
   };
@@ -64,6 +69,25 @@ var chooseTransportMode = function chooseTransportMode(directionsService, direct
   for (var i = 0; i < transportModes.length; i++) {
     _loop(i);
   }
+};
+
+var removeActiveState = function removeActiveState() {
+  var transportModes = document.querySelectorAll(".modes button");
+  for (var i = 0; i < transportModes.length; i++) {
+    transportModes[i].classList.remove("active");
+  }
+};
+
+var chooseDestination = function chooseDestination(directionsService, directionsDisplay, startingPoint, markers, map) {
+  var initialMode = 'DRIVING';
+  var selectDestination = document.querySelector(".parks-select select");
+  var driveButton = document.querySelector("[value='DRIVING']");
+  console.log(document.querySelector(".parks-select select"));
+  selectDestination.addEventListener('change', function () {
+    removeActiveState();
+    driveButton.classList.add("active");
+    calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, initialMode, markers, map);
+  });
 };
 
 var addCustomMarker = function addCustomMarker(markers, position, map, icon, title) {

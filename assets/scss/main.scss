@@ -1,6 +1,5 @@
 @import 'reset';
 
-
 body {
     color: #222222;
     main {
@@ -92,6 +91,14 @@ body {
                         }
                     }
                     &:hover, &:focus {
+                        color: #53D8FB;
+                        picture {
+                            svg {
+                                fill: #53D8FB;
+                            }
+                        }
+                    }
+                    &.active {
                         color: #53D8FB;
                         picture {
                             svg {
