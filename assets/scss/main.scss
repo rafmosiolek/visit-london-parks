@@ -100,10 +100,22 @@ body {
             }
             .parks-select {
                 select {
+                    border: 0;
                     width: 100%;
                     padding: 0.5em;
                     font: 16px/24px 'Work Sans', sans-serif;
                     font-weight: 500;
+                    @media screen and (min-width: 720px) {
+                        padding: 1em 0.5em;
+                    }
+                    @media screen and (min-width: 1440px) {
+                        font: 22px/32px 'Work Sans', sans-serif;
+                        font-weight: 500;
+                    }
+                    @media screen and (min-width: 1920px) {
+                        font: 24px/34px 'Work Sans', sans-serif;
+                        font-weight: 500;
+                    }
                 }
             }
         }

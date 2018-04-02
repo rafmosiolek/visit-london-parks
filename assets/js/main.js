@@ -26,23 +26,23 @@ const geolocateUser = (map) => {
     let userLocation;
     directionsDisplay.setMap(map);
     if (navigator.geolocation) {
-        console.log('geolocation...');
+        console.log('geolocation supported');
         userLocation = {
-            lat: 51.5074,
-            lng: -0.1278
-        }
+            lat: 51.509778,
+            lng: -0.149803
+        };
         map.setCenter(userLocation);
         chooseTransportMode(directionsService, directionsDisplay, userLocation, markers, map);
         addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
         navigator.geolocation.getCurrentPosition((position, options) => {
-            // userLocation = {
-            //     lat: position.coords.latitude,
-            //     lng: position.coords.longitude
-            // }
-            // console.log('user location found: ', userLocation);
-            // map.setCenter(userLocation);
-            // chooseTransportMode(directionsService, directionsDisplay, userLocation, markers);
-            // addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
+            userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+            console.log('user location found: ', userLocation);
+            map.setCenter(userLocation);
+            chooseTransportMode(directionsService, directionsDisplay, userLocation, markers, map);
+            addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
         }, () => {
             // position callback
             errorCallback(true, map.getCenter());
@@ -68,6 +68,8 @@ const chooseTransportMode = (directionsService, directionsDisplay, startingPoint
         })
     }
 }
+
+
 
 const addCustomMarker = (markers, position, map, icon, title) => {
     
@@ -95,11 +97,15 @@ const removeExistingMarkers = (markers) => {
 }
 
 
+
+
+
 const calculateAndDisplayRoute = (directionsService, directionsDisplay, startingPoint, transportMode, markers, map) => {
     console.log('calculateAndDisplayRoute called');
     const chosenDestination = document.querySelector(".parks-select select").value;
     console.log('chosen destination: ' + chosenDestination);
     console.log('starting point: ' + startingPoint);
+
     directionsService.route({
         origin: startingPoint,
         destination: chosenDestination,
