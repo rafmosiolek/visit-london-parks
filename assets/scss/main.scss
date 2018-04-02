@@ -15,7 +15,7 @@ body {
         flex-direction: column;
         min-height: 300px;
         height: 100vh;
-        padding: 0 2%;
+        padding: 0 8px;
         header {
             h1 {
                 font: 30px/40px 'Work Sans', sans-serif;
@@ -45,7 +45,7 @@ body {
         }
         #map {
             flex-grow: 1;
-            
+            border-radius: 4px;
         }
         nav {
             display: flex;
@@ -93,6 +93,12 @@ body {
                     border-radius: 100%;
                     border: none;
                     color: #FFFFFF;
+                    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+                    picture {
+                        svg {
+                            fill: #FFFFFF;
+                        }
+                    }
                 }
             }
         }
