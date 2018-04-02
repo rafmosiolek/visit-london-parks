@@ -78,6 +78,7 @@ body {
   body main #map {
     height: 100vh; }
   body main #navigation {
+    width: 60vw;
     position: absolute;
     bottom: 1vh;
     background: #f3f3f3;
@@ -88,129 +89,75 @@ body {
     -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
     z-index: 99999;
-    padding: 0.5em;
     margin: 1em 10px; }
-
-body {
-  margin: 0;
-  padding: 0;
-  color: #222222; }
-  body #map {
-    height: 100vh; }
-    body #map .gmnoprint {
-      margin: 1em; }
-  @media screen and (min-width: 1024px) {
-    body #navigation {
-      width: 60vw; } }
-  body #navigation button {
-    background: none;
-    border: none;
-    padding: 1em;
-    height: 100%;
-    -webkit-transition: all 0.4s ease;
-    -o-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column; }
-    body #navigation button svg {
-      -webkit-transition: all 0.4s ease;
-      -o-transition: all 0.4s ease;
-      transition: all 0.4s ease;
-      fill: #222222; }
-    body #navigation button:hover, body #navigation button:focus {
-      color: #53D8FB; }
-      body #navigation button:hover svg, body #navigation button:focus svg {
-        fill: #53D8FB; }
-  body #navigation .row {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    width: 100%; }
-    body #navigation .row.buttons {
-      border-bottom: 1px solid #C7C7C7;
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-      -ms-flex-align: center;
-      align-items: center;
-      height: 4em; }
-      @media screen and (min-width: 650px) {
-        body #navigation .row.buttons {
-          height: 6em; } }
-      body #navigation .row.buttons button {
+    @media screen and (min-width: 1024px) {
+      body main #navigation {
+        width: 40vw; } }
+    body main #navigation .modes {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      width: 100%;
+      border-bottom: 1px solid #C7C7C7; }
+      body main #navigation .modes button {
         width: 33.33%;
+        padding: 0;
+        background: none;
+        border: none;
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
-        -webkit-box-pack: center;
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
-        justify-content: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
         -webkit-box-align: center;
         -webkit-align-items: center;
         -ms-flex-align: center;
         align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-transition: all 0.4s ease;
+        -o-transition: all 0.4s ease;
+        transition: all 0.4s ease;
         font-size: 0;
         border-right: 1px solid #C7C7C7; }
-        body #navigation .row.buttons button:last-child {
+        body main #navigation .modes button:last-child {
           border: none; }
         @media screen and (min-width: 650px) {
-          body #navigation .row.buttons button {
-            font: 18px/28px 'Work Sans', sans-serif;
+          body main #navigation .modes button {
+            font: 16px/26px 'Work Sans', sans-serif;
             font-weight: 300; } }
         @media screen and (min-width: 1440px) {
-          body #navigation .row.buttons button {
+          body main #navigation .modes button {
+            font: 22px/32px 'Work Sans', sans-serif;
+            font-weight: 300; } }
+        @media screen and (min-width: 1920px) {
+          body main #navigation .modes button {
             font: 24px/34px 'Work Sans', sans-serif;
             font-weight: 300; } }
-        @media screen and (min-width: 1920px) {
-          body #navigation .row.buttons button {
-            font: 26px/36px 'Work Sans', sans-serif;
-            font-weight: 300; } }
-    body #navigation .row.user-location {
-      -webkit-box-pack: start;
-      -webkit-justify-content: flex-start;
-      -ms-flex-pack: start;
-      justify-content: flex-start; }
-      body #navigation .row.user-location input {
-        background: none;
-        border: none;
-        padding: 1em;
-        width: 100%;
-        font: 16px/24px 'Work Sans', sans-serif; }
-        @media screen and (min-width: 1440px) {
-          body #navigation .row.user-location input {
-            font: 21px/29px 'Work Sans', sans-serif;
-            font-weight: 300; } }
-        @media screen and (min-width: 1920px) {
-          body #navigation .row.user-location input {
-            font: 23px/31px 'Work Sans', sans-serif;
-            font-weight: 300; } }
-      body #navigation .row.user-location #find-user {
-        width: 25%;
-        font: 16px/24px 'Work Sans', sans-serif;
-        font-weight: 500; }
-        @media screen and (min-width: 1440px) {
-          body #navigation .row.user-location #find-user {
-            font: 21px/31px 'Work Sans', sans-serif;
-            font-weight: 500; } }
-        @media screen and (min-width: 1920px) {
-          body #navigation .row.user-location #find-user {
-            font: 23px/31px 'Work Sans', sans-serif;
-            font-weight: 300; } }
+        body main #navigation .modes button picture svg {
+          -webkit-transition: all 0.4s ease;
+          -o-transition: all 0.4s ease;
+          transition: all 0.4s ease;
+          fill: #222222;
+          padding: 10px; }
+        body main #navigation .modes button:hover, body main #navigation .modes button:focus {
+          color: #53D8FB; }
+          body main #navigation .modes button:hover picture svg, body main #navigation .modes button:focus picture svg {
+            fill: #53D8FB; }
+    body main #navigation .parks-select select {
+      width: 100%;
+      padding: 0.5em;
+      font: 16px/24px 'Work Sans', sans-serif;
+      font-weight: 500; }
