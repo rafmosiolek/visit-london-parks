@@ -11,45 +11,48 @@
 <body>
     <main>
         <header>
-            <h1>Visit London Parks!</h1>
+            <h1>Visit London's Parks!</h1>
         </header>
         <section id="map"></section>
-        <nav>
-            <select name="text">
-                <option value="value1">Value 1</option> 
-                <option value="value2">Value 2</option>
-                <option value="value3">Value 3</option>
-            </select>
-            <article id="modes">
-                <button value='walking'>
+        <nav id="navigation">
+            <section class="row buttons">
+                <button value="WALKING">
                     <picture>
                         <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 0h24v24H0z" fill="none"/>
                             <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
                         </svg>
                     </picture>
+                    walk
                 </button>
-                <button value='driving'>
+                <button value="DRIVING">
                     <picture>
                         <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18.92 5.01C18.72 4.42 18.16 4 17.5 4h-11c-.66 0-1.21.42-1.42 1.01L3 11v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 15c-.83 0-1.5-.67-1.5-1.5S5.67 12 6.5 12s1.5.67 1.5 1.5S7.33 15 6.5 15zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 10l1.5-4.5h11L19 10H5z"/>
                             <path d="M0 0h24v24H0z" fill="none"/>
                         </svg>
                     </picture>
+                    drive
                 </button>
-                <button value='transit'>
+                <button value="TRANSIT">
                     <picture>
                         <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 0h24v24H0z" fill="none"/>
                             <path d="M12 2c-4.42 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm3.5-6H6V6h5v5zm5.5 6c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6h-5V6h5v5z"/>
                         </svg>
                     </picture>
+                    public transport
                 </button>
-            </article>
-
+            </section>
+            <section class="row user-location">
+                <select name="text">
+                    <option value="value1">Value 1</option> 
+                    <option value="value2">Value 2</option>
+                    <option value="value3">Value 3</option>
+                </select>
+            </section>
         </nav>
     </main>
-
 
     <script src="build/js/main.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhfhCCBYbyvhHslmLkT5i7a5OZulnCXb0&callback=initMap"></script>
