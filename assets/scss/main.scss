@@ -98,6 +98,14 @@ body {
                             }
                         }
                     }
+                    &.active {
+                        color: #53D8FB;
+                        picture {
+                            svg {
+                                fill: #53D8FB;
+                            }
+                        }
+                    }
                 }
             }
             .parks-select {

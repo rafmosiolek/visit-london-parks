@@ -159,6 +159,10 @@ body {
           color: #53D8FB; }
           body main #navigation .modes button:hover picture svg, body main #navigation .modes button:focus picture svg {
             fill: #53D8FB; }
+        body main #navigation .modes button.active {
+          color: #53D8FB; }
+          body main #navigation .modes button.active picture svg {
+            fill: #53D8FB; }
     body main #navigation .parks-select select {
       border: 0;
       width: 100%;

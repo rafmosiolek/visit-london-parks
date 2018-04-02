@@ -23,12 +23,13 @@ Live demo available [here](https://rafmosiolek.github.io/visit-london-parks/).
 
 To run this app locally:
 1. Clone the repository 
-``` $ git clone https://github.com/rafmosiolek/visit-london-parks.git ```
+``` $ git clone https://github.com/rafmosiolek/visit-london-parks.git ``` 
+and navigate into the folder ``` cd visit-london-parks ```
 2. Install dependencies from package.json
 ``` $ npm install ```
 3. Run the local server
 ``` $ gulp serve```
-4. Navigate to ```localhost:8000``` in your browser
+4. Navigate to ```localhost:8000/index.html``` in your browser
 
 ## Technology:
 
@@ -39,9 +40,10 @@ To run this app locally:
 - Google Maps Directions API
 
 ### Ways to improve:
+- refactor main.js code to reduce levels of abstraction in functions;
+- refactor main.js code to reduce duplications in functions by creating more reusable functions;
 - add unit and browser tests;
 - improve page performance by minifing JavaScript and CSS;
-- update route automatically after user selects different park, without choosing mode of transport;
 - notify users their location hasn't been found yet when they try to find directions before their geolocation was received;
 - allow users to select their starting location without the geolocation;
 - display three best possible routes not one;
