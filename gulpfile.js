@@ -40,7 +40,7 @@ gulp.task('serve', () => {
         .pipe(webserver({
             livereload: false,
             directoryListing: true,
-            open: true
+            open: true, 
         }))
 });
 

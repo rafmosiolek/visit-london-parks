@@ -12,7 +12,6 @@ var initMap = function initMap() {
     styles: mapStyle
   };
   var map = new google.maps.Map(mapContainer, mapOptions);
-
   geolocateUser(map);
 };
 
@@ -29,13 +28,6 @@ var geolocateUser = function geolocateUser(map) {
   directionsDisplay.setMap(map);
   if (navigator.geolocation) {
     console.log('geolocation supported');
-    userLocation = {
-      lat: 51.509778,
-      lng: -0.149803
-    };
-    map.setCenter(userLocation);
-    chooseTransportMode(directionsService, directionsDisplay, userLocation, markers, map);
-    addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
     navigator.geolocation.getCurrentPosition(function (position, options) {
       userLocation = {
         lat: position.coords.latitude,
@@ -59,7 +51,6 @@ var errorCallback = function errorCallback(browserGeolocation, pos) {
 };
 
 var chooseTransportMode = function chooseTransportMode(directionsService, directionsDisplay, startingPoint, markers, map) {
-  console.log('transport', map);
   removeExistingMarkers(markers);
   var transportModes = document.querySelectorAll(".modes button");
 
@@ -76,7 +67,6 @@ var chooseTransportMode = function chooseTransportMode(directionsService, direct
 };
 
 var addCustomMarker = function addCustomMarker(markers, position, map, icon, title) {
-
   var infoWindow = new google.maps.InfoWindow({
     content: title
   });
@@ -98,18 +88,13 @@ var addCustomMarker = function addCustomMarker(markers, position, map, icon, tit
 };
 
 var removeExistingMarkers = function removeExistingMarkers(markers) {
-  console.log('markers' + markers);
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(null);
   }
 };
 
 var calculateAndDisplayRoute = function calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, transportMode, markers, map) {
-  console.log('calculateAndDisplayRoute called');
   var chosenDestination = document.querySelector(".parks-select select").value;
-  console.log('chosen destination: ' + chosenDestination);
-  console.log('starting point: ' + startingPoint);
-
   directionsService.route({
     origin: startingPoint,
     destination: chosenDestination,
