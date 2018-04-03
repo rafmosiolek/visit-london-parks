@@ -18,13 +18,13 @@ const geolocateUser = (map) => {
   const directionsDisplay = new google.maps.DirectionsRenderer({
     suppressMarkers: true
   });
+  const markers = [];
+  let userLocation;
   const geolocationOptions = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0
   };
-  const markers = [];
-  let userLocation;
   directionsDisplay.setMap(map);
   if (navigator.geolocation) {
     console.log('geolocation supported');
@@ -35,9 +35,9 @@ const geolocateUser = (map) => {
       }
       console.log('user location found: ', userLocation);
       map.setCenter(userLocation);
-      chooseTransportMode(directionsService, directionsDisplay, userLocation, markers, map);
-      chooseDestination(directionsService, directionsDisplay, userLocation, markers, map);
-      addCustomMarker(markers, userLocation, map, 'assets/img/user_marker.png', 'User Location');
+      activateTransportModeSelection(directionsService, directionsDisplay, userLocation, markers, map);
+      activateDestinationSelection(directionsService, directionsDisplay, userLocation, markers, map);
+      addCustomMarker(userLocation, markers, map, 'assets/img/user_marker.png', 'User Location');
     }, () => {
       // position callback
       errorCallback(true, map.getCenter());
@@ -51,8 +51,8 @@ const errorCallback = (browserGeolocation, pos) => {
   browserGeolocation ? console.log('Error: The Geolocation service failed.') : console.log('Error: Your browser doesn\'t support geolocation.');
 }
 
-const chooseTransportMode = (directionsService, directionsDisplay, startingPoint, markers, map) => {
-  removeExistingMarkers(markers);
+const activateTransportModeSelection = (directionsService, directionsDisplay, startingPoint, markers, map) => {
+
   const transportModes = document.querySelectorAll(".modes button");
   for (let i = 0; i < transportModes.length; i++) {
     transportModes[i].addEventListener('click', () => {
@@ -64,27 +64,18 @@ const chooseTransportMode = (directionsService, directionsDisplay, startingPoint
   }
 }
 
-const removeActiveState = () => {
-  const transportModes = document.querySelectorAll(".modes button");
-  for (let i = 0; i < transportModes.length; i++) {
-    transportModes[i].classList.remove("active");
-  }
-}
-
-const chooseDestination = (directionsService, directionsDisplay, startingPoint, markers, map) => {
+const activateDestinationSelection = (directionsService, directionsDisplay, startingPoint, markers, map) => {
   let initialMode = 'DRIVING';
   const selectDestination = document.querySelector(".parks-select select");
   const driveButton = document.querySelector("[value='DRIVING']");
-  console.log(document.querySelector(".parks-select select"));
   selectDestination.addEventListener('change', () => {
     removeActiveState();
     driveButton.classList.add("active");
     calculateAndDisplayRoute(directionsService, directionsDisplay, startingPoint, initialMode, markers, map);
-
   });
 }
 
-const addCustomMarker = (markers, position, map, icon, title) => {
+const addCustomMarker = (position, markers, map, icon, title) => {
   let infoWindow = new google.maps.InfoWindow({
     content: title
   });
@@ -101,13 +92,8 @@ const addCustomMarker = (markers, position, map, icon, title) => {
   marker.addListener('click', () => infoWindow.open(map, marker));
 }
 
-const removeExistingMarkers = (markers) => {
-  for (let i = 0; i < markers.length; i++) {
-    markers[i].setMap(null);
-  }
-}
-
 const calculateAndDisplayRoute = (directionsService, directionsDisplay, startingPoint, transportMode, markers, map) => {
+  removeExistingMarkers(markers);
   const chosenDestination = document.querySelector(".parks-select select").value;
   directionsService.route({
     origin: startingPoint,
@@ -117,13 +103,25 @@ const calculateAndDisplayRoute = (directionsService, directionsDisplay, starting
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
       const leg = response.routes[0].legs[0];
-      removeExistingMarkers(markers);
-      addCustomMarker(markers, leg.start_location, map, 'assets/img/user_marker.png', 'User location');
-      addCustomMarker(markers, leg.end_location, map, 'assets/img/park_marker.png', chosenDestination);
+      addCustomMarker(leg.start_location, markers, map, 'assets/img/user_marker.png', 'User location');
+      addCustomMarker(leg.end_location, markers, map, 'assets/img/park_marker.png', chosenDestination);
     } else {
       window.alert('Directions request failed due to ' + status);
     }
   });
+}
+
+const removeActiveState = () => {
+  const transportModes = document.querySelectorAll(".modes button");
+  for (let i = 0; i < transportModes.length; i++) {
+    transportModes[i].classList.remove("active");
+  }
+}
+
+const removeExistingMarkers = (markers) => {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
 }
 
 const mapStyle = [{
@@ -248,4 +246,4 @@ const mapStyle = [{
       "color": "#9e9e9e"
     }]
   }
-];
+]
