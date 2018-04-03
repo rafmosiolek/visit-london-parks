@@ -47,6 +47,7 @@ and navigate into the folder ``` cd visit-london-parks ```
 - notify users their location hasn't been found yet when they try to find directions before their geolocation was received;
 - allow users to select their starting location without the geolocation;
 - display three best possible routes not one;
+- adjust zoom after finding directions, so app UI never overlaps the route;
 
 ## Resources 
 * [Google Maps API Documentation](https://developers.google.com/maps/documentation/javascript/)
